@@ -1,6 +1,6 @@
 # tidy the data and create files
-source('./Scripts/Tidy_Scripts/PACKAGES.R')
-source('./Scripts/Tidy_Scripts/FUNCTIONS.R')
+source('./Scripts/Tidy_Scripts/.PACKAGES.R')
+source('./Scripts/Tidy_Scripts/.FUNCTIONS.R')
 source('./Scripts/Tidy_Scripts/func_read_site_data.R')
 source('./Scripts/Tidy_Scripts/func_tidy_polypen_files.R')
 
