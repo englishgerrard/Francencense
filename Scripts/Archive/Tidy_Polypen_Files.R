@@ -1,6 +1,7 @@
 tidy_polypen <- function(DATA=DATA){
-
+  DATA[DATA=="LLT-1-T-12-T-D"] <- "LLT-1-T-12-T-D2" # fix mislablled entry
 SortPolypen <- function(data = data, x){
+  
   data.frame(Date = as.Date(str_sub(data[1,x], 0,10), format = '%d/%m/%Y'),
              Datetime = as_datetime(data[1,x], format = '%d/%m/%Y %H:%M'),
              ID = data[2,x],
@@ -19,11 +20,12 @@ SortPolypen <- function(data = data, x){
 long_data <- bind_rows(lapply(2:ncol(DATA), SortPolypen, data=DATA))
 long_data$Tree_num <- as.numeric(long_data$Tree_num)
 long_data$Location <- paste(long_data$Location, long_data$site_num, sep='-')
+# ensure the ID colum is a consistent length
 pad_fourth_element <- function(str) {
   gsub("(.*-)(\\d)(-.*)", "\\1\\02\\3", str)
 }
 
-long_data$ID2 <- pad_fourth_element(long_data$ID)
+#long_data$ID2 <- pad_fourth_element(long_data$ID)
 # plot
 p1 <- ggplot(long_data, aes(x=nm,y=Signal,colour=Type, group = obv_n)) +
       geom_line()
@@ -59,8 +61,7 @@ t <- filter(long_data,Type =='Transmitance')
 # join the references to the transmittance data 
 data <- full_join(t, references, by = c('obv_n', 'nm'))
 # create absolute reflectance 
-data <- data %>% mutate(refl = (Signal-dark_ref)/(white_ref-dark_ref)) %>%
-  mutate(refl2 = Signal/white_ref)
+data <- data %>% mutate(refl = (Signal-dark_ref)/(white_ref-dark_ref)) 
 
 p2 <- ggplot(data, aes(x= nm, y = refl, group = ID, colour = Tapping)) +
   geom_line() #+
@@ -88,5 +89,5 @@ data <- data %>% mutate(lat = ifelse(latDir == 'S', -lat, lat)) %>%
   mutate(lon = ifelse(latDir == 'W', -lon, lon))
 
  
+#return(long_data)} # use this to include the white and dark referece observations
 return(data)}
-

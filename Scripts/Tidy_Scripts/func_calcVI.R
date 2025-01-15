@@ -34,7 +34,7 @@ calcVI <- function(data, keep_bands = T, Device2 = F){
     oneBand$MCARI <- ((oneBand$r700- oneBand$r670) - 0.2 * (oneBand$r700- oneBand$r550)) * (oneBand$r700/ oneBand$r670)
     oneBand$G <- oneBand$r554 / oneBand$r677
     oneBand$TCARI <-  3 * ((oneBand$r700- oneBand$r670) - 0.2 * (oneBand$r700- oneBand$r550) * (oneBand$r700/ oneBand$r670))
-    oneBand$SRPI <- oneBand$r430 / oneBand$r680
+    oneBand$SPRI <- oneBand$r430 / oneBand$r680
     oneBand$PRI <- (oneBand$r531-oneBand$r570)/(oneBand$r531+oneBand$r570)
     oneBand$SIPI <- (oneBand$r790-oneBand$r450)/(oneBand$r790+oneBand$r650)
     oneBand$ARI1 <- 1/oneBand$r550 - 1/oneBand$r700
